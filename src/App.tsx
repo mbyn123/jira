@@ -1,11 +1,10 @@
 import React from 'react';
 import './App.css';
-import { PanelList } from 'screens/panel-list'
+import { PanelList } from 'screens/panelList'
 function App() {
   return (
     <div className="App">
-      <PanelList 
-      type="dd"></PanelList>
+      <PanelList></PanelList>
     </div>
   );
 }
