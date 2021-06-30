@@ -2,7 +2,7 @@ import React from "react"
 
 export const List = ({ list,users }) => {
     return (
-        <table>
+        <table style={{margin:'0 auto'}}>
             <thead>
                 <tr>
                     <th>名称</th>

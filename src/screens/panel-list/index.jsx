@@ -1,9 +1,11 @@
 import React,{useState,useEffect} from "react"
 import {SearchPanel} from './searchPanel'
 import {List} from './list'
+import {cleanObject} from 'utils/index'
+import qs from 'qs'
 
 const api = process.env.REACT_APP_API_URL
-console.log(1111,api)
+
 export const PanelList = ()=>{
     const [param, setParam] = useState({
         name: '',
@@ -13,12 +15,19 @@ export const PanelList = ()=>{
     const [list,setList] = useState([])
 
     useEffect(() => {
-      fetch(`${api}/user?name=${param.name}`).then(async res=>{
+      fetch(`${api}/user`).then(async res=>{
           if(res.ok){
             setUsers(await res.json())
           }
       })
-    }, [param])
+    }, [])
+    useEffect(()=>{
+        fetch(`${api}/projects?${qs.stringify(cleanObject(param))}`).then(async res=>{
+            if(res.ok){
+                setList(await res.json())
+            }
+        })
+    },[param])
     return (
         <div>
             <SearchPanel param={param} setParam={setParam} users={users}></SearchPanel>
