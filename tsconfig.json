@@ -23,5 +23,5 @@
   },
   "include": [
     "src"
-  ]
+, "__json_server_mock__/middleware.js"  ]
 }
