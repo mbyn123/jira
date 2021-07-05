@@ -1,12 +1,9 @@
-import React, { useState, useEffect } from "react"
+import { useState, useEffect } from "react"
 import { SearchPanel } from './searchPanel'
 import { List } from './list'
 import { cleanObject, useMount,useDebounce } from 'utils'
-import qs from 'qs'
-
-
-
-const api = process.env.REACT_APP_API_URL
+import {useHttp} from 'utils/http'
+const baseApi = process.env.REACT_APP_API_URL
 
 export const PanelList = () => {
     const [param, setParam] = useState({
@@ -16,21 +13,24 @@ export const PanelList = () => {
     const [users, setUsers] = useState([])
     const [list, setList] = useState([])
     const debounceParam = useDebounce(param,1000)
+    const client = useHttp()
 
     useMount(()=>{
-        fetch(`${api}/user`).then(async res => {
-            if (res.ok) {
-                setUsers(await res.json())
-            }
-        })
+        client('users').then(setUsers)
+        // fetch(`${baseApi}/users`).then(async res => {
+        //     if (res.ok) {
+        //         setUsers(await res.json())
+        //     }
+        // })
     })
 
     useEffect(() => {
-        fetch(`${api}/projects?${qs.stringify(cleanObject(debounceParam))}`).then(async res => {
-            if (res.ok) {
-                setList(await res.json())
-            }
-        })
+        client('projects',{data:cleanObject(debounceParam)}).then(setList)
+        // fetch(`${api}/projects?${qs.stringify(cleanObject(debounceParam))}`).then(async res => {
+        //     if (res.ok) {
+        //         setList(await res.json())
+        //     }
+        // })
     }, [debounceParam])
 
     return (

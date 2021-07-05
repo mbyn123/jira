@@ -1,6 +1,7 @@
 import { User } from 'screens/panelList/searchPanel'
+import {http} from 'utils/http'
 
-const api = process.env.REACT_APP_API_URL
+// const api = process.env.REACT_APP_API_URL
 
 const localStorageKey = '__auth_provider_token__'
 
@@ -13,36 +14,38 @@ export const handleUserResponse = ({ user }: { user: User }) => {
 
 // 登录
 export const login = (data: { username: string, password: string }) => {
-    return fetch(`${api}/login`, {
-        method: 'POST',
-        headers: {
-            'Content-type': 'application/json'
-        },
-        body: JSON.stringify(data)
-    }).then(async res => {
-        if (res.ok) {
-            return handleUserResponse(await res.json())
-        }else{
-            return Promise.reject(data)
-        }
-    })
+    return http('login',{data,method:'post'}).then(user=>handleUserResponse(user))
+    // return fetch(`${api}/login`, {
+    //     method: 'POST',
+    //     headers: {
+    //         'Content-type': 'application/json'
+    //     },
+    //     body: JSON.stringify(data)
+    // }).then(async res => {
+    //     if (res.ok) {
+    //         return handleUserResponse(await res.json())
+    //     }else{
+    //         return Promise.reject(data)
+    //     }
+    // })
 }
 
 // 注册
 export const register = (data: { username: string, password: string }) => {
-    return fetch(`${api}/register`, {
-        method: 'POST',
-        headers: {
-            'Content-type': 'application/json'
-        },
-        body: JSON.stringify(data)
-    }).then(async res => {
-        if (res.ok) {
-            return handleUserResponse(await res.json())
-        }else{
-            return Promise.reject(data)
-        }
-    })
+    return http('register',{data,method:'post'}).then(user=>handleUserResponse(user))
+    // return fetch(`${api}/register`, {
+    //     method: 'POST',
+    //     headers: {
+    //         'Content-type': 'application/json'
+    //     },
+    //     body: JSON.stringify(data)
+    // }).then(async res => {
+    //     if (res.ok) {
+    //         return handleUserResponse(await res.json())
+    //     }else{
+    //         return Promise.reject(data)
+    //     }
+    // })
 }
 
 // 退出
