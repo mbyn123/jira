@@ -1,12 +1,15 @@
-import React from 'react';
 import './App.css';
-// import { PanelList } from 'screens/panelList'
-import {LoginScreen} from 'screens/login'
+import { Authenticatied } from 'authenticatied'
+import { Unauthenticatied } from 'unauthenticatied'
+import { useAuth } from 'context/auth-context'
+
 function App() {
+  const { user } = useAuth()
   return (
     <div className="App">
-      {/* <PanelList></PanelList> */}
-      <LoginScreen></LoginScreen>
+      {
+        user ? <Authenticatied /> : <Unauthenticatied />
+      }
     </div>
   );
 }

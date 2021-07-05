@@ -2,14 +2,13 @@ import { FormEvent } from "react";
 import { useAuth } from 'context/auth-context'
 
 export const LoginScreen = () => {
-    const { login,register } = useAuth()
+    const { login } = useAuth()
     const handSubmit = (event: FormEvent<HTMLFormElement>) => {
         event.preventDefault()
         let username = (event.currentTarget.elements[0] as HTMLInputElement).value
         let password = (event.currentTarget.elements[1] as HTMLInputElement).value
         console.log(username, password)
         login({ username, password })
-        // register({ username, password })
     }
     return (
         <form onSubmit={handSubmit}>
