@@ -3,7 +3,6 @@ import { SearchPanel } from './searchPanel'
 import { List } from './list'
 import { cleanObject, useMount,useDebounce } from 'utils'
 import {useHttp} from 'utils/http'
-const baseApi = process.env.REACT_APP_API_URL
 
 export const PanelList = () => {
     const [param, setParam] = useState({
@@ -17,21 +16,12 @@ export const PanelList = () => {
 
     useMount(()=>{
         client('users').then(setUsers)
-        // fetch(`${baseApi}/users`).then(async res => {
-        //     if (res.ok) {
-        //         setUsers(await res.json())
-        //     }
-        // })
     })
 
     useEffect(() => {
         client('projects',{data:cleanObject(debounceParam)}).then(setList)
-        // fetch(`${api}/projects?${qs.stringify(cleanObject(debounceParam))}`).then(async res => {
-        //     if (res.ok) {
-        //         setList(await res.json())
-        //     }
-        // })
     }, [debounceParam])
+
 
     return (
         <div>

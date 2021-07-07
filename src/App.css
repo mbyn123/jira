@@ -1,4 +1,13 @@
-.App {
-  text-align: center;
+html{
+  /* 
+  em  相对于父元素的font-size
+  rem 相对于根元素的html的font-size ,r就是root 根节点的意思
+  16px * 62.5% = 10px
+  1rem === 10px
+  */
+  font-size: 62.5%;
 }
 
+html body #root .App{
+  min-height: 100vh;
+}
