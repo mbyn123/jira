@@ -2,17 +2,18 @@ import { PanelList } from "screens/panelList"
 import { useAuth } from "context/auth-context"
 import styled from "@emotion/styled"
 import { Button } from "antd"
+import { Row } from "components/lib"
 
 
 export const Authenticatied = () => {
     const { logout } = useAuth()
     return (
         <Container>
-            <Header>
-                <HeaderLeft>
-                    <h3>Logo</h3>
-                    <h3>项目</h3>
-                    <h3>用户</h3>
+            <Header between>
+                <HeaderLeft gap>
+                    <h2>Logo</h2>
+                    <h2>项目</h2>
+                    <h2>用户</h2>
                 </HeaderLeft>
                 <HeaderRight>
                     <Button onClick={() => logout()}>退出</Button>
@@ -33,20 +34,14 @@ grid-template-areas:
 height: 100vh;
 `
 
-const Header = styled.header`
+const Header = styled(Row)`
 grid-area: header;
-display: flex;
-align-items: center;
-justify-content: space-between;
-border:1px solid red;
 `
 const Main = styled.main`
 grid-area: main;
 `
 
-const HeaderLeft = styled.div`
-display: flex;
-align-items: center;
+const HeaderLeft = styled(Row)`
 `
 const HeaderRight = styled.div`
 
