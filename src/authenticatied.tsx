@@ -6,7 +6,7 @@ import { Row } from "components/lib"
 
 
 export const Authenticatied = () => {
-    const { logout,user } = useAuth()
+    const { logout, user } = useAuth()
     return (
         <Container>
             <Header between>
@@ -18,12 +18,12 @@ export const Authenticatied = () => {
                 <HeaderRight>
                     <Dropdown overlay={<Menu>
                         <Menu.Item>
-                            <a onClick={() => logout()}>退出</a>
+                            <Button type={'link'} onClick={() => logout()}>退出</Button>
                         </Menu.Item>
                     </Menu>}>
-                        <a onClick={e=>e.preventDefault}>{user?.name}</a>  
+                        <Button type={'link'}>{user?.name}</Button>
                     </Dropdown>
-                  
+
                 </HeaderRight>
             </Header>
             <Main> <PanelList /></Main>

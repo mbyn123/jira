@@ -1,7 +1,7 @@
 import { useState } from "react"
 import { LoginScreen } from './login'
 import { RegisterScreen } from "./register"
-import { Card, Divider } from "antd"
+import { Button, Card, Divider } from "antd"
 import styled from '@emotion/styled'
 
 export const Unauthenticatied = () => {
@@ -14,7 +14,7 @@ export const Unauthenticatied = () => {
                     isRegister ? <RegisterScreen /> : <LoginScreen />
                 }
                 <Divider />
-                <a onClick={() => setIsRegister(!isRegister)}>{isRegister ? '已有账号？直接登录' : '还没有账号，去注册'}</a>
+                <Button type={'link'} onClick={() => setIsRegister(!isRegister)}>{isRegister ? '已有账号？直接登录' : '还没有账号，去注册'}</Button>
             </ShowCard>
 
         </Container>
