@@ -3,6 +3,7 @@ import { SearchPanel } from './searchPanel'
 import { List } from './list'
 import { cleanObject, useMount,useDebounce } from 'utils'
 import {useHttp} from 'utils/http'
+import styled from "@emotion/styled"
 
 export const PanelList = () => {
     const [param, setParam] = useState({
@@ -24,10 +25,13 @@ export const PanelList = () => {
 
 
     return (
-        <div>
+        <Container>
             <SearchPanel param={param} setParam={setParam} users={users}></SearchPanel>
             <List list={list} users={users}></List>
-        </div>
+        </Container>
     )
 }
 
+const Container = styled.div`
+padding: 3.2rem;
+`

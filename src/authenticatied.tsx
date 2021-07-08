@@ -1,12 +1,12 @@
 import { PanelList } from "screens/panelList"
 import { useAuth } from "context/auth-context"
 import styled from "@emotion/styled"
-import { Button } from "antd"
+import { Button, Dropdown, Menu } from "antd"
 import { Row } from "components/lib"
 
 
 export const Authenticatied = () => {
-    const { logout } = useAuth()
+    const { logout,user } = useAuth()
     return (
         <Container>
             <Header between>
@@ -16,7 +16,14 @@ export const Authenticatied = () => {
                     <h2>用户</h2>
                 </HeaderLeft>
                 <HeaderRight>
-                    <Button onClick={() => logout()}>退出</Button>
+                    <Dropdown overlay={<Menu>
+                        <Menu.Item>
+                            <a onClick={() => logout()}>退出</a>
+                        </Menu.Item>
+                    </Menu>}>
+                        <a onClick={e=>e.preventDefault}>{user?.name}</a>  
+                    </Dropdown>
+                  
                 </HeaderRight>
             </Header>
             <Main> <PanelList /></Main>
@@ -36,6 +43,8 @@ height: 100vh;
 
 const Header = styled(Row)`
 grid-area: header;
+padding: 3.2rem;
+box-shadow: 0 0 5px rgba(0,0,0,0.1);
 `
 const Main = styled.main`
 grid-area: main;
