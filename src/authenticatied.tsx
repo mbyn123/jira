@@ -1,4 +1,4 @@
-import { PanelList } from "screens/panelList"
+import { PanelList } from "screens/projectlList"
 import { useAuth } from "context/auth-context"
 import styled from "@emotion/styled"
 import { Button, Dropdown, Menu } from "antd"

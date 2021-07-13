@@ -1,22 +1,21 @@
-import { Table } from "antd"
+import { Table, TableProps } from "antd"
 import { User } from './searchPanel'
 import dayjs from 'dayjs'
 
-interface list {
+export interface Project {
     id: number,
-    personId: number,
+    personId: string,
     name: string,
     created: number
 }
 
-interface listProps {
-    list: list[],
+interface listProps extends TableProps<Project> {
     users: User[]
 }
 
-export const List = ({ list, users }: listProps) => {
+export const List = ({users,...props }: listProps) => {
     return (
-        <Table pagination={false} rowKey='id' dataSource={list} columns={[
+        <Table pagination={false} rowKey='id'    columns={[
             {
                 title: '名称',
                 dataIndex: 'name',
@@ -42,7 +41,9 @@ export const List = ({ list, users }: listProps) => {
                     return value.created ? dayjs(value.created).format('YYYY-MM-DD') : ''
                 }
             }
-        ]}></Table>
+        ]}
+        {...props}
+        ></Table>
     )
 }
 
