@@ -4,6 +4,7 @@ import { useAuth } from 'context/auth-context'
 import { Button, Form, Input } from "antd";
 import styled from '@emotion/styled';
 import { useAsync } from 'utils/useAsync';
+import userEvent from '@testing-library/user-event';
 
 export const RegisterScreen = ({ onError }: { onError: (error: Error) => void }) => {
     const { register } = useAuth()

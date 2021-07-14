@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useRef } from 'react'
 
 // 是否等于0
 export const isFalsy = (value: unknown) => value === 0 ? false : !value
@@ -18,6 +18,7 @@ export const cleanObject = (object: {[key:string]:unknown}) => {
     return result
 }
 
+// 初始化加载
 export const useMount = (call: () => void) => {
     useEffect(() => {
         // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -25,6 +26,7 @@ export const useMount = (call: () => void) => {
     }, []);
 }
 
+// 节流方法
 export const useDebounce = <V>(value:V, delay: number) => {
     const [debouncedValue, setDebouncedValue] = useState(value)
     useEffect(() => {
@@ -32,4 +34,22 @@ export const useDebounce = <V>(value:V, delay: number) => {
         return () => clearTimeout(timeout)
     }, [value, delay]);
     return debouncedValue
+}
+
+// 修改页面标题
+export const  useDocumentTitle = (title:string,keepOnUnmount:boolean=true)=>{
+    // useRef可以保存最初状态的值，不受其它影响
+    const oldTile = useRef(document.title).current
+
+    useEffect(()=>{
+        document.title = title
+    },[title])
+
+    useEffect(()=>{
+        return ()=>{
+            if(!keepOnUnmount){
+                document.title = oldTile
+            }
+        }
+    },[oldTile,keepOnUnmount])
 }

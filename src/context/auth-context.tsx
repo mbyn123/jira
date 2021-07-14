@@ -3,6 +3,8 @@ import * as auth from 'auth-provider'
 import { User } from 'screens/projectlList/searchPanel'
 import { http } from "utils/http";
 import { useMount } from "utils";
+import { useAsync } from "utils/useAsync";
+import { FullPageError, FullPageLoading } from "components/lib";
 
 interface authForm {
     username: string,
@@ -29,14 +31,27 @@ const AuthContext = React.createContext<{
 AuthContext.displayName = 'AuthContext'
 
 export const AuthProvider = ({ children }: { children: ReactNode }) => {
-    const [user, setUser] = useState<User | null>(null)
+    // 第一种
+    // const [user, setUser] = useState<User | null>(null)
+    const {run,setData:setUser,data:user,isLoading,isIdle,isError,error} = useAsync<User | null>()
     const login = (form: authForm) => auth.login(form).then(setUser)
     const register = (form: authForm) => auth.register(form).then(setUser)
     const logout = () => auth.logout().then(() => setUser(null))
-    
+    // 页面刷新时，验证token是否失效
     useMount(()=>{
-        bootStraspUser().then(setUser)
+         // 第一种
+        // bootStraspUser().then(setUser)
+        run(bootStraspUser())
     })
+   
+    if(isLoading || isIdle){
+        return <FullPageLoading/>
+    }
+
+    if(isError){
+        return <FullPageError error={error}></FullPageError>
+    }
+
 
     return <AuthContext.Provider children={children} value={{ user, login, register, logout }} />
 }

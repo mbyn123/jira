@@ -3,7 +3,7 @@ import { SearchPanel } from './searchPanel'
 // import { List, Project } from './list'
 // import { cleanObject, useMount, useDebounce } from 'utils'
 import { List } from './list'
-import {useDebounce} from 'utils'
+import {useDebounce, useDocumentTitle} from 'utils'
 // 第一二种
 // import { useHttp } from 'utils/http'
 import styled from "@emotion/styled"
@@ -21,7 +21,8 @@ export const PanelList = () => {
     const debounceParam = useDebounce(param, 1000)
     const { data: list, error, isLoading } = useProject(debounceParam)
     const { data: users } = useUsers()
-
+    // document.title = '12123121'
+    useDocumentTitle('项目列表',false)
     // 第一种
     // const [users, setUsers] = useState([])
     // const [list, setList] = useState([])
