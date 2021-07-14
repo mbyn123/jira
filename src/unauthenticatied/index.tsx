@@ -1,20 +1,27 @@
 import { useState } from "react"
 import { LoginScreen } from './login'
 import { RegisterScreen } from "./register"
-import { Button, Card, Divider } from "antd"
+import { Button, Card, Divider, Typography } from "antd"
 import styled from '@emotion/styled'
 
 export const Unauthenticatied = () => {
     const [isRegister, setIsRegister] = useState(false)
+    const [error, setError] = useState<Error | null>(null)
+
+    const changeToggle = () => {
+        setIsRegister(!isRegister)
+        setError(null)
+    }
     return (
         <Container>
             <ShowCard>
                 <Title>{isRegister ? '请注册' : '请登录'}</Title>
+                {error ? <Typography.Text type={'danger'}>{error.message}</Typography.Text> : null}
                 {
-                    isRegister ? <RegisterScreen /> : <LoginScreen />
+                    isRegister ? <RegisterScreen onError={setError} /> : <LoginScreen onError={setError} />
                 }
                 <Divider />
-                <Button type={'link'} onClick={() => setIsRegister(!isRegister)}>{isRegister ? '已有账号？直接登录' : '还没有账号，去注册'}</Button>
+                <Button type={'link'} onClick={changeToggle}>{isRegister ? '已有账号？直接登录' : '还没有账号，去注册'}</Button>
             </ShowCard>
 
         </Container>

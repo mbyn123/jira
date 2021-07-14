@@ -2,9 +2,11 @@
 import { useAuth } from 'context/auth-context'
 import { Button, Form, Input } from "antd";
 import styled from '@emotion/styled';
+import { useAsync } from 'utils/useAsync';
 
-export const LoginScreen = () => {
+export const LoginScreen = ({onError}:{onError:(error:Error)=>void}) => {
     const { login } = useAuth()
+    const {run,isLoading} = useAsync(undefined,{throwError:true})
     // const handSubmit = (event: FormEvent<HTMLFormElement>) => {
     //     event.preventDefault()
     //     let username = (event.currentTarget.elements[0] as HTMLInputElement).value
@@ -13,7 +15,7 @@ export const LoginScreen = () => {
     //     login({ username, password })
     // }
     const handSubmit = (value: { username: string, password: string }) => {
-        login(value)
+        run(login(value)).catch(onError)
     }
     return (
         <Form onFinish={handSubmit}>
@@ -23,7 +25,7 @@ export const LoginScreen = () => {
             <Form.Item name={'password'} rules={[{required:true,message:'请输入密码'}]}>
                 <Input placeholder={'密码'} type="password" />
             </Form.Item>
-            <LoginButton htmlType={'submit'} type={'primary'}>登录</LoginButton>
+            <LoginButton loading={isLoading} htmlType={'submit'} type={'primary'}>登录</LoginButton>
         </Form>
     )
 }

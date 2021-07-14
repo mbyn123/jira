@@ -2,18 +2,22 @@ import { useState } from 'react';
 
 interface State<D> {
     error: Error | null,
-    data:  D | null,
+    data: D | null,
     stat: 'idle' | 'loading' | 'error' | 'success'
 }
 
-const defaultInitialstate:State<null> = {
+const defaultInitialstate: State<null> = {
     stat: 'idle',
     error: null,
     data: null
 }
 
+const defaultConfig = {
+    throwError: false
+}
 
-export const useAsync = <D>(initialState?: State<D>) => {
+export const useAsync = <D>(initialState?: State<D>, initialConfig?: typeof defaultConfig) => {
+    const config = { ...defaultConfig, ...initialConfig }
     const [state, setState] = useState<State<D>>({
         ...defaultInitialstate,
         ...initialState
@@ -41,6 +45,9 @@ export const useAsync = <D>(initialState?: State<D>) => {
             return data
         }).catch(error => {
             setError(error)
+            // 抛出异常
+            if (config.throwError)
+                return Promise.reject(error)
             return error
         })
     }

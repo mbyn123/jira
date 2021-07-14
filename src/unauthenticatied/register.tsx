@@ -1,10 +1,13 @@
 // import { FormEvent } from "react";
+import {useEffect} from 'react'
 import { useAuth } from 'context/auth-context'
 import { Button, Form, Input } from "antd";
 import styled from '@emotion/styled';
+import { useAsync } from 'utils/useAsync';
 
-export const RegisterScreen = () => {
+export const RegisterScreen = ({ onError }: { onError: (error: Error) => void }) => {
     const { register } = useAuth()
+    const { run, isLoading } = useAsync(undefined, { throwError: true })
     // const handSubmit = (event: FormEvent<HTMLFormElement>) => {
     //     event.preventDefault()
     //     let username = (event.currentTarget.elements[0] as HTMLInputElement).value
@@ -12,18 +15,24 @@ export const RegisterScreen = () => {
     //     console.log(username, password)
     //     register({ username, password })
     // }
-    const handSubmit = (value: { username: string, password: string }) => {
-        register(value)
+    const handSubmit = ({ cpassword, ...value }: { username: string, password: string, cpassword: string }) => {
+        if (cpassword !== value.password) {
+            return onError(new Error("两次密码输入不一致！"));
+        }
+        run(register(value)).catch(onError)
     }
     return (
         <Form onFinish={handSubmit}>
-            <Form.Item name={'username'} rules={[{required:true,message:'请输入用户名'}]}>
+            <Form.Item name={'username'} rules={[{ required: true, message: '请输入用户名' }]}>
                 <Input placeholder={'用户名'} type="text" />
             </Form.Item>
-            <Form.Item name={'password'} rules={[{required:true,message:'请输入密码'}]}>
+            <Form.Item name={'password'} rules={[{ required: true, message: '请输入密码' }]}>
                 <Input placeholder={'密码'} type="password" />
             </Form.Item>
-            <LoginButton htmlType={'submit'} type={'primary'}>注册</LoginButton>
+            <Form.Item name={'cpassword'} rules={[{ required: true, message: '请输入确认密码' }]}>
+                <Input placeholder={'确认密码'} type="password" />
+            </Form.Item>
+            <LoginButton loading={isLoading} htmlType={'submit'} type={'primary'}>注册</LoginButton>
         </Form>
     )
 }
