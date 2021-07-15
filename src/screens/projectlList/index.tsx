@@ -12,16 +12,19 @@ import { Typography } from "antd"
 // import { useAsync } from "utils/useAsync"
 import { useProject } from "utils/useProject"
 import { useUsers } from "utils/useUsers"
+import { useUrlQueryParam } from "utils/url"
 
 export const PanelList = () => {
-    const [param, setParam] = useState({
-        name: '',
-        personId: ''
-    })
+    // const [param,setParam] = useState({
+    //     name: '',
+    //     personId: ''
+    // })
+    // 基本数据类型(字符串 等),组件状态(useState)可以放在依赖里；非组件转态的对象，不可以放在对象中否则会引起无限循环渲染
+    const [param,setParam] = useUrlQueryParam(['name','personId'])
+    console.log(param)
     const debounceParam = useDebounce(param, 1000)
     const { data: list, error, isLoading } = useProject(debounceParam)
     const { data: users } = useUsers()
-    // document.title = '12123121'
     useDocumentTitle('项目列表',false)
     // 第一种
     // const [users, setUsers] = useState([])
