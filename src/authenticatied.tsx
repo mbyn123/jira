@@ -1,33 +1,51 @@
 import { PanelList } from "screens/projectlList"
+import { Project } from 'screens/project'
 import { useAuth } from "context/auth-context"
 import styled from "@emotion/styled"
 import { Button, Dropdown, Menu } from "antd"
 import { Row } from "components/lib"
-
+import { Navigate, Route, Routes } from 'react-router'
+import { BrowserRouter as Router } from "react-router-dom"
+import { resetRoute } from "utils"
 
 export const Authenticatied = () => {
-    const { logout, user } = useAuth()
     return (
         <Container>
-            <Header between>
-                <HeaderLeft gap>
-                    <h2>Logo</h2>
-                    <h2>项目</h2>
-                    <h2>用户</h2>
-                </HeaderLeft>
-                <HeaderRight>
-                    <Dropdown overlay={<Menu>
-                        <Menu.Item>
-                            <Button type={'link'} onClick={() => logout()}>退出</Button>
-                        </Menu.Item>
-                    </Menu>}>
-                        <Button type={'link'}>{user?.name}</Button>
-                    </Dropdown>
-
-                </HeaderRight>
-            </Header>
-            <Main> <PanelList /></Main>
+            <PageHeader />
+            <Main>
+                <Router>
+                    <Routes>
+                        <Route path={'/projects'} element={<PanelList />} />
+                        <Route path={'/projects/:projectId/*'} element={<Project />} />
+                        {/* 默认路由 */}
+                        <Navigate to={'/projects'}></Navigate>
+                    </Routes>
+                </Router>
+            </Main>
         </Container>
+    )
+}
+
+const PageHeader = () => {
+    const { logout, user } = useAuth()
+    return (
+        <Header between>
+            <HeaderLeft gap>
+                <Logo onClick={resetRoute}>Logo</Logo>
+                <h2>项目</h2>
+                <h2>用户</h2>
+            </HeaderLeft>
+            <HeaderRight>
+                <Dropdown overlay={<Menu>
+                    <Menu.Item>
+                        <Button type={'link'} onClick={() => logout()}>退出</Button>
+                    </Menu.Item>
+                </Menu>}>
+                    <Button type={'link'}>{user?.name}</Button>
+                </Dropdown>
+
+            </HeaderRight>
+        </Header>
     )
 }
 
@@ -54,6 +72,9 @@ const HeaderLeft = styled(Row)`
 `
 const HeaderRight = styled.div`
 
+`
+const Logo = styled.h2`
+cursor: pointer;
 `
 
 // grid布局
