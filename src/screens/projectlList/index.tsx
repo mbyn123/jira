@@ -1,4 +1,4 @@
-import { useState } from "react"
+// import { useState } from "react"
 import { SearchPanel } from './searchPanel'
 // import { List, Project } from './list'
 // import { cleanObject, useMount, useDebounce } from 'utils'
@@ -12,7 +12,8 @@ import { Typography } from "antd"
 // import { useAsync } from "utils/useAsync"
 import { useProject } from "utils/useProject"
 import { useUsers } from "utils/useUsers"
-import { useUrlQueryParam } from "utils/url"
+// import { useUrlQueryParam } from "utils/url"
+import { useProjrctParams } from "./util"
 
 export const PanelList = () => {
     // const [param,setParam] = useState({
@@ -20,10 +21,11 @@ export const PanelList = () => {
     //     personId: ''
     // })
     // 基本数据类型(字符串 等),组件状态(useState)可以放在依赖里；非组件转态的对象，不可以放在对象中否则会引起无限循环渲染
-    const [param,setParam] = useUrlQueryParam(['name','personId'])
-    console.log(param)
-    const debounceParam = useDebounce(param, 1000)
-    const { data: list, error, isLoading } = useProject(debounceParam)
+    // const [param,setParam] = useUrlQueryParam(['name','personId'])
+    // const peojrctParam = {...param,personId:Number(param.personId)}
+    // const debounceParam = useDebounce(peojrctParam, 1000)
+    const [param,setParam]=useProjrctParams()
+    const { data: list, error, isLoading } = useProject(useDebounce(param, 1000))
     const { data: users } = useUsers()
     useDocumentTitle('项目列表',false)
     // 第一种

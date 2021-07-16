@@ -1,5 +1,7 @@
 import styled from "@emotion/styled"
 import { Form, Input, Select } from "antd"
+import { UseSelect } from "components/useSelect"
+import { Project } from "./list"
 
 export interface User {
     id: number,
@@ -9,10 +11,11 @@ export interface User {
 
 interface searchPanelProps {
     users: User[],
-    param: {
-        name: string,
-        personId: string
-    },
+    param: Partial<Pick<Project, 'name' | 'personId'>>,
+    // param: {
+    //     name: string,
+    //     personId: string
+    // },
     setParam: (param: searchPanelProps['param']) => void
 }
 
@@ -27,12 +30,15 @@ export const SearchPanel = ({ param, setParam, users }: searchPanelProps) => {
                     })} />
                 </Form.Item>
                 <Form.Item>
-                    <Select value={param.personId} onChange={(value) => setParam({
+                    <UseSelect defaultOptionName={'负责人'} value={param.personId} onChange={(value) => setParam({
+                        ...param, personId: value
+                    })} />
+                    {/* <Select value={param.personId} onChange={(value) => setParam({
                         ...param, personId: value
                     })}>
                         <Select.Option value={''} >负责人</Select.Option>
                         {users.map(item => <Select.Option value={String(item.id)} key={item.id}>{item.name}</Select.Option>)}
-                    </Select>
+                    </Select> */}
                 </Form.Item>
             </Form>
 

@@ -48,13 +48,15 @@ export const useHttp = () => {
 }
 
 // type 类型别名 在很多情况下可以和interface呼唤
-// type person = {
-//     name:string,
-//     age:number,
-//     sex:string
-// }
+type person = {
+    name: string,
+    age: number,
+    sex: string
+}
 
-// // Partial 让当前对象中的属性属于某个对象中的类型
+//    Partial 让当前对象继承其它对象中的部分类型
 // const xm:Partial<person> = {}
-// // Omit 让当前对象中的属性属于某个对象中的类型,并且可以去除某些类型
+//    Omit 让当前对象继承其它对象中的类型,并且可以去除其中的某些类型
 // const smi:Omit<person,'name' | 'sex'> ={age:12}
+//    Pick 让当前对象继承其它对象中的类型，并指定继承那些类型
+// const zh: Pick<person, 'name' | 'age'> = { name: '', age: 10 }

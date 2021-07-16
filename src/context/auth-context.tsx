@@ -1,4 +1,4 @@
-import React, { useState, ReactNode } from "react";
+import React, { ReactNode } from "react";
 import * as auth from 'auth-provider'
 import { User } from 'screens/projectlList/searchPanel'
 import { http } from "utils/http";
@@ -28,6 +28,7 @@ const AuthContext = React.createContext<{
     login: (form: authForm) => Promise<void>,
     logout: () => Promise<void>
 } | undefined>(undefined)
+
 AuthContext.displayName = 'AuthContext'
 
 export const AuthProvider = ({ children }: { children: ReactNode }) => {

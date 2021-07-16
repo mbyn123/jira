@@ -5,7 +5,7 @@ import { Link } from "react-router-dom"
 
 export interface Project {
     id: number,
-    personId: string,
+    personId: number,
     name: string,
     created: number
 }
