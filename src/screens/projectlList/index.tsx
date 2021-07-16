@@ -3,7 +3,7 @@ import { SearchPanel } from './searchPanel'
 // import { List, Project } from './list'
 // import { cleanObject, useMount, useDebounce } from 'utils'
 import { List } from './list'
-import {useDebounce, useDocumentTitle} from 'utils'
+import { useDebounce, useDocumentTitle } from 'utils'
 // 第一二种
 // import { useHttp } from 'utils/http'
 import styled from "@emotion/styled"
@@ -24,10 +24,10 @@ export const PanelList = () => {
     // const [param,setParam] = useUrlQueryParam(['name','personId'])
     // const peojrctParam = {...param,personId:Number(param.personId)}
     // const debounceParam = useDebounce(peojrctParam, 1000)
-    const [param,setParam]=useProjrctParams()
-    const { data: list, error, isLoading } = useProject(useDebounce(param, 1000))
+    const [param, setParam] = useProjrctParams()
+    const { data: list, error, isLoading, retry } = useProject(useDebounce(param, 1000))
     const { data: users } = useUsers()
-    useDocumentTitle('项目列表',false)
+    useDocumentTitle('项目列表', false)
     // 第一种
     // const [users, setUsers] = useState([])
     // const [list, setList] = useState([])
@@ -58,13 +58,11 @@ export const PanelList = () => {
     //     client('users',{data:cleanObject(param)}).then(setUsers)
     // })
 
-
-
     return (
         <Container>
             <SearchPanel param={param} setParam={setParam} users={users || []}></SearchPanel>
             {error ? <Typography.Text type={'danger'}>{error.message}</Typography.Text> : null}
-            <List dataSource={list || []} loading={isLoading} users={users || []}></List>
+            <List refresh={retry} dataSource={list || []} loading={isLoading} users={users || []}></List>
         </Container>
     )
 }

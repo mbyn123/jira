@@ -22,6 +22,8 @@ export const useAsync = <D>(initialState?: State<D>, initialConfig?: typeof defa
         ...defaultInitialstate,
         ...initialState
     })
+    // 刷新，使用useState保存函数
+    const [retry,setRetry] = useState(()=>{})
 
     const setData = (data: D) => setState({
         stat: 'success',
@@ -35,11 +37,19 @@ export const useAsync = <D>(initialState?: State<D>, initialConfig?: typeof defa
         data: null
     })
 
-    const run = (promise: Promise<D>) => {
+    const run = (promise: Promise<D>,runConfig?:{retry:()=>Promise<D>}) => {
         if (!promise || !promise.then) {
             throw new Error('请传入Promise类型数据')
         }
+        // useState具有懒性初始state的特性，一开始会执行函数，所以在外面嵌套一层函数
+        // 重新执行传入的方法，刷新页面数据
+        setRetry(()=>()=>{
+             if(runConfig?.retry){
+                run(runConfig.retry(),runConfig)
+             }
+        })
         setState({ ...state, stat: 'loading' })
+
         return promise.then(data => {
             setData(data)
             return data
@@ -57,6 +67,7 @@ export const useAsync = <D>(initialState?: State<D>, initialConfig?: typeof defa
         isSuccess: state.stat === 'success',
         isError: state.stat === 'error',
         run,
+        retry,
         setData,
         setError,
         ...state
