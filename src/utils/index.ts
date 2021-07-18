@@ -20,11 +20,11 @@ export const cleanObject = (object: {[key:string]:unknown}) => {
 }
 
 // 初始化加载
-export const useMount = (call: () => void) => {
-    useEffect(() => {
-        call()
-    }, []);
-}
+// export const useMount = (call: () => void) => {
+//     useEffect(() => {
+//         call()
+//     }, []);
+// }
 
 // 节流方法
 export const useDebounce = <V>(value:V, delay: number) => {

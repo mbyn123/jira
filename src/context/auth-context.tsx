@@ -1,8 +1,8 @@
-import React, { ReactNode } from "react";
+import React, { ReactNode, useEffect } from "react";
 import * as auth from 'auth-provider'
 import { User } from 'screens/projectlList/searchPanel'
 import { http } from "utils/http";
-import { useMount } from "utils";
+// import { useMount } from "utils";
 import { useAsync } from "utils/useAsync";
 import { FullPageError, FullPageLoading } from "components/lib";
 
@@ -39,11 +39,12 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
     const register = (form: authForm) => auth.register(form).then(setUser)
     const logout = () => auth.logout().then(() => setUser(null))
     // 页面刷新时，验证token是否失效
-    useMount(()=>{
+    useEffect(() => {
+        run(bootStraspUser())
          // 第一种
         // bootStraspUser().then(setUser)
-        run(bootStraspUser())
-    })
+        
+    },[run])
    
     if(isLoading || isIdle){
         return <FullPageLoading/>

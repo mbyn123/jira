@@ -22,7 +22,7 @@ export const useUrlQueryParam = <k extends string>(keys: k[]) => {
             () => keys.reduce((prev, key) => {
                 return { ...prev, [key]: searchParams.get(key) || '' }
             }, {} as { [key in k]: string }),
-            [searchParams]
+            [searchParams,keys]
         ),
         (params: Partial<{ [key in k]: unknown }>) => {
             // fromEntries 把键值对列表（具有iterator可迭代属性）转换为对象
