@@ -1,3 +1,4 @@
+
 import { useState, useEffect, useRef } from 'react'
 
 // 是否等于0
@@ -55,3 +56,19 @@ export const  useDocumentTitle = (title:string,keepOnUnmount:boolean=true)=>{
 }
 
 export const resetRoute = ()=> window.location.href = window.location.origin
+
+// 返回组件的挂载状态
+export const useMountedRef = ()=>{
+    const mountedRef = useRef(false)
+    // useEffect是在组件渲染完后才执行
+    useEffect(()=>{
+        // 组件加载完成，返回true
+        mountedRef.current = true
+        return ()=>{
+            // 组件卸载，返回false
+            mountedRef.current = false
+        }
+    })
+
+    return mountedRef
+}

@@ -1,3 +1,4 @@
+import { useMountedRef } from './index';
 import { useState } from 'react';
 
 interface State<D> {
@@ -23,7 +24,9 @@ export const useAsync = <D>(initialState?: State<D>, initialConfig?: typeof defa
         ...initialState
     })
     // 刷新，使用useState保存函数,会出现惰性初始化加载函数，所以在外面包裹一层
-    const [retry,setRetry] = useState(()=>()=>{})
+    const [retry, setRetry] = useState(() => () => { })
+
+    const mountedRef = useMountedRef()
 
     const setData = (data: D) => setState({
         stat: 'success',
@@ -37,22 +40,25 @@ export const useAsync = <D>(initialState?: State<D>, initialConfig?: typeof defa
         data: null
     })
 
-    const run = (promise: Promise<D>,runConfig?:{retry:()=>Promise<D>}) => {
+    const run = (promise: Promise<D>, runConfig?: { retry: () => Promise<D> }) => {
         if (!promise || !promise.then) {
             throw new Error('请传入Promise类型数据')
         }
         // useState具有懒性初始state的特性，一开始会执行函数，所以在外面嵌套一层函数
         // 重新执行传入的方法，刷新页面数据
-        setRetry(()=>()=>{
-             if(runConfig?.retry){
-                run(runConfig?.retry(),runConfig)
-             }
+        setRetry(() => () => {
+            if (runConfig?.retry) {
+                run(runConfig?.retry(), runConfig)
+            }
         })
         setState({ ...state, stat: 'loading' })
 
         return promise.then(data => {
-            setData(data)
-            return data
+            // 组件挂载完成才修改state中的数据
+            if (mountedRef.current) {
+                setData(data)
+                return data
+            }
         }).catch(error => {
             setError(error)
             // 抛出异常
