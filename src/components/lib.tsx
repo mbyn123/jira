@@ -9,12 +9,12 @@ export const Row = styled.div<{
 }>`
 display: flex;
 align-items: center;
-justify-content: ${props => props.between ? 'space-between' : undefined};
-margin-bottom: ${props => props.marginBottom + 'rem'};
+justify-content: ${(props: { between: unknown }) => props.between ? 'space-between' : undefined};
+margin-bottom: ${(props: { marginBottom: string }) => props.marginBottom + 'rem'};
 >*{
     margin-top: 0 !important;
     margin-bottom: 0 !important;
-    margin-right: ${props => typeof props.gap === 'number' ? props.gap + 'rem' : props.gap ? '2rem' : undefined};
+    margin-right: ${(props: { gap: string }) => typeof props.gap === 'number' ? props.gap + 'rem' : props.gap ? '2rem' : undefined};
 }
 `
 
@@ -31,6 +31,6 @@ export const FullPageLoading = () => <FullPage>
     <Spin size={'large'}></Spin>
 </FullPage>
 
-export const FullPageError=({error}:{error:Error | null})=><FullPage>
+export const FullPageError = ({ error }: { error: Error | null }) => <FullPage>
     <Typography.Text type={'danger'}>{error?.message}</Typography.Text>
 </FullPage>
