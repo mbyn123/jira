@@ -6,7 +6,6 @@ import { cleanObject } from "utils"
 export const useUrlQueryParam = <k extends string>(keys: k[]) => {
 
     const [searchParams, setSearchParam] = useSearchParams()
-    console.log(searchParams, 'searchParams')
     return [
         // useEffect 是在 render 之后dom渲染后才执行
         // useCallback 和 useMemo

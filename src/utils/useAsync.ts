@@ -22,8 +22,8 @@ export const useAsync = <D>(initialState?: State<D>, initialConfig?: typeof defa
         ...defaultInitialstate,
         ...initialState
     })
-    // 刷新，使用useState保存函数
-    const [retry,setRetry] = useState(()=>{})
+    // 刷新，使用useState保存函数,会出现惰性初始化加载函数，所以在外面包裹一层
+    const [retry,setRetry] = useState(()=>()=>{})
 
     const setData = (data: D) => setState({
         stat: 'success',
@@ -45,7 +45,7 @@ export const useAsync = <D>(initialState?: State<D>, initialConfig?: typeof defa
         // 重新执行传入的方法，刷新页面数据
         setRetry(()=>()=>{
              if(runConfig?.retry){
-                run(runConfig.retry(),runConfig)
+                run(runConfig?.retry(),runConfig)
              }
         })
         setState({ ...state, stat: 'loading' })
