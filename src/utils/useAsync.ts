@@ -1,5 +1,5 @@
 import { useMountedRef } from './index';
-import { useState } from 'react';
+import { useCallback, useState } from 'react';
 
 interface State<D> {
     error: Error | null,
@@ -28,19 +28,19 @@ export const useAsync = <D>(initialState?: State<D>, initialConfig?: typeof defa
 
     const mountedRef = useMountedRef()
 
-    const setData = (data: D) => setState({
+    const setData = useCallback((data: D) => setState({
         stat: 'success',
         error: null,
         data
-    })
+    }), [])
 
-    const setError = (error: Error) => setState({
+    const setError = useCallback((error: Error) => setState({
         stat: 'error',
         error,
         data: null
-    })
+    }), [])
 
-    const run = (promise: Promise<D>, runConfig?: { retry: () => Promise<D> }) => {
+    const run = useCallback((promise: Promise<D>, runConfig?: { retry: () => Promise<D> }) => {
         if (!promise || !promise.then) {
             throw new Error('请传入Promise类型数据')
         }
@@ -51,7 +51,7 @@ export const useAsync = <D>(initialState?: State<D>, initialConfig?: typeof defa
                 run(runConfig?.retry(), runConfig)
             }
         })
-        setState({ ...state, stat: 'loading' })
+        setState(prevState => ({ ...prevState, stat: 'loading' }))
 
         return promise.then(data => {
             // 组件挂载完成才修改state中的数据
@@ -66,7 +66,8 @@ export const useAsync = <D>(initialState?: State<D>, initialConfig?: typeof defa
                 return Promise.reject(error)
             return error
         })
-    }
+    }, [config.throwError, mountedRef, setData, setError])
+
     return {
         isIdle: state.stat === 'idle',
         isLoading: state.stat === 'loading',

@@ -1,6 +1,7 @@
 import qs from 'qs'
 import * as auth from 'auth-provider'
 import { useAuth } from 'context/auth-context'
+import { useCallback } from 'react'
 
 const baseApi = process.env.REACT_APP_API_URL
 
@@ -43,16 +44,17 @@ export const http = (endpoint: string, { data, token, headers, ...Config }: Conf
 
 export const useHttp = () => {
     const { user } = useAuth()
-    // Parameters 联合类型
-    return (...[endpoint, config]: Parameters<typeof http>) => http(endpoint, { ...config, token: user?.token })
+    // Parameters 联合类型  
+    // 自定义hooks中返回的函数，最好用useCallback包裹，否则在外界的useEffect中使用易造成无限循环 
+    return useCallback((...[endpoint, config]: Parameters<typeof http>) => http(endpoint, { ...config, token: user?.token }),[user?.token])
 }
 
 // type 类型别名 在很多情况下可以和interface呼唤
-type person = {
-    name: string,
-    age: number,
-    sex: string
-}
+// type person = {
+//     name: string,
+//     age: number,
+//     sex: string
+// }
 
 //    Partial 让当前对象继承其它对象中的部分类型
 // const xm:Partial<person> = {}

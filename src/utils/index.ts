@@ -22,7 +22,6 @@ export const cleanObject = (object: {[key:string]:unknown}) => {
 // 初始化加载
 export const useMount = (call: () => void) => {
     useEffect(() => {
-        // eslint-disable-next-line react-hooks/exhaustive-deps
         call()
     }, []);
 }
