@@ -53,8 +53,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
     if(isError){
         return <FullPageError error={error}></FullPageError>
     }
-
-
+    
     return <AuthContext.Provider children={children} value={{ user, login, register, logout }} />
 }
 

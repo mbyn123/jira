@@ -1,4 +1,4 @@
-import { useState, useCallback, useReducer } from 'react';
+import { useCallback, useReducer } from 'react';
 
 // // 状态回退/前进 
 // export const UseUndo = <T>(initiaPresent: T) => {
@@ -132,8 +132,6 @@ import { useState, useCallback, useReducer } from 'react';
 // }
 
 // 使用useReducer优化
-
-
 export const UseUndo = <T>(initiaPresent: T) => {
     const UNDO = 'UNDO'
     const REDO = 'REDO'
