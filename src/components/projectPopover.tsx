@@ -1,11 +1,16 @@
 import styled from "@emotion/styled"
 import { List, Popover, Typography } from "antd"
+import { useDispatch } from "react-redux"
+import { projectListActions } from "screens/projectlList/projectListSlice"
 import { useProject } from "utils/useProject"
 import { ButtonNoPadding } from "./lib"
 
 export const ProjectPopover = () => {
     const { data } = useProject()
     const pinnedProject = data?.filter(item => item.pin)
+    const dispatch = useDispatch()
+   
+
     const content = (
         <Contation>
             <Typography.Text type={'secondary'}>收藏项目</Typography.Text>
@@ -16,7 +21,7 @@ export const ProjectPopover = () => {
                     ))
                 }
             </List>
-            <ButtonNoPadding type={'link'}>创建项目</ButtonNoPadding>
+            <ButtonNoPadding type={'link'} onClick={()=>dispatch(projectListActions.openProjectModal())}>创建项目</ButtonNoPadding>
         </Contation>
     )
     return (

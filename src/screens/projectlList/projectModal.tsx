@@ -1,8 +1,12 @@
 import { Drawer } from "antd"
+import { useDispatch, useSelector } from "react-redux"
+import { projectListActions, selectProjctModalOpen } from "./projectListSlice"
 
-export const ProjectModal = (props:{projectModalOpen:boolean,onClose:()=>void})=>{
+export const ProjectModal = ()=>{
+    const projectModalOpen = useSelector(selectProjctModalOpen)
+    const dispatch = useDispatch()
     return (
-        <Drawer width={'100%'} visible={props.projectModalOpen} onClose={props.onClose}>
+        <Drawer width={'100%'} visible={projectModalOpen} onClose={()=>dispatch(projectListActions.closeProjectModal())}>
             <h1>11</h1>
         </Drawer>
     )

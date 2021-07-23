@@ -1,4 +1,3 @@
-import { useState } from "react"
 import { PanelList } from "screens/projectlList"
 import { Project } from 'screens/project'
 import { useAuth } from "context/auth-context"
@@ -12,7 +11,6 @@ import { ProjectModal } from "screens/projectlList/projectModal"
 import { ProjectPopover } from "components/projectPopover"
 
 export const Authenticatied = () => {
-    const [projectModalOpen,setProjectModalOpen] = useState(false)
     return (
         <Container>
             <PageHeader />
@@ -26,7 +24,7 @@ export const Authenticatied = () => {
                     </Routes>
                 </Router>
             </Main>
-            <ProjectModal projectModalOpen={projectModalOpen} onClose={()=>setProjectModalOpen(false)}></ProjectModal>
+            <ProjectModal></ProjectModal>
         </Container>
     )
 }
@@ -48,7 +46,6 @@ const PageHeader = () => {
                 </Menu>}>
                     <Button type={'link'}>{user?.name}</Button>
                 </Dropdown>
-
             </HeaderRight>
         </Header>
     )
