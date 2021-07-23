@@ -1,6 +1,8 @@
 import styled from "@emotion/styled"
 import { Button, Form, Input } from "antd"
 import { UseSelect } from "components/useSelect"
+import { useDispatch } from "react-redux"
+import { projectListActions } from "store/projectListSlice"
 import { Project } from "./list"
 
 export interface User {
@@ -20,11 +22,12 @@ interface searchPanelProps {
 }
 
 export const SearchPanel = ({ param, setParam, users }: searchPanelProps) => {
+    const dispatch = useDispatch()
     return (
         <Container>
            <Header>
            <h2>项目列表</h2>
-           <Button>创建项目</Button>
+           <Button onClick={()=>dispatch(projectListActions.openProjectModal())}>创建项目</Button>
            </Header>            
             <Form layout={'inline'}>
                 <Form.Item>

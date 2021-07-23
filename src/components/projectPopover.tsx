@@ -1,7 +1,7 @@
 import styled from "@emotion/styled"
 import { List, Popover, Typography } from "antd"
 import { useDispatch } from "react-redux"
-import { projectListActions } from "screens/projectlList/projectListSlice"
+import { projectListActions } from "store/projectListSlice"
 import { useProject } from "utils/useProject"
 import { ButtonNoPadding } from "./lib"
 

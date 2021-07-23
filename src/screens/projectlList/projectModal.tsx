@@ -1,6 +1,6 @@
 import { Drawer } from "antd"
 import { useDispatch, useSelector } from "react-redux"
-import { projectListActions, selectProjctModalOpen } from "./projectListSlice"
+import { projectListActions, selectProjctModalOpen } from "../../store/projectListSlice"
 
 export const ProjectModal = ()=>{
     const projectModalOpen = useSelector(selectProjctModalOpen)
