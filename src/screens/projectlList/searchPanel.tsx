@@ -1,5 +1,5 @@
 import styled from "@emotion/styled"
-import { Form, Input } from "antd"
+import { Button, Form, Input } from "antd"
 import { UseSelect } from "components/useSelect"
 import { Project } from "./list"
 
@@ -22,7 +22,10 @@ interface searchPanelProps {
 export const SearchPanel = ({ param, setParam, users }: searchPanelProps) => {
     return (
         <Container>
-            <h2>项目列表</h2>
+           <Header>
+           <h2>项目列表</h2>
+           <Button>创建项目</Button>
+           </Header>            
             <Form layout={'inline'}>
                 <Form.Item>
                     <Input type="text" placeholder={'项目名称'} value={param.name} onChange={(e) => setParam({
@@ -50,3 +53,8 @@ const Container = styled.div`
 margin-bottom: 3rem;
 `
 
+const Header = styled.div`
+display: flex;
+align-items: center;
+justify-content: space-between;
+`

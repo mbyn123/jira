@@ -1,14 +1,18 @@
+import { useState } from "react"
 import { PanelList } from "screens/projectlList"
 import { Project } from 'screens/project'
 import { useAuth } from "context/auth-context"
 import styled from "@emotion/styled"
 import { Button, Dropdown, Menu } from "antd"
-import { Row } from "components/lib"
+import { ButtonNoPadding, Row } from "components/lib"
 import { Navigate, Route, Routes } from 'react-router'
 import { BrowserRouter as Router } from "react-router-dom"
 import { resetRoute } from "utils"
+import { ProjectModal } from "screens/projectlList/projectModal"
+import { ProjectPopover } from "components/projectPopover"
 
 export const Authenticatied = () => {
+    const [projectModalOpen,setProjectModalOpen] = useState(false)
     return (
         <Container>
             <PageHeader />
@@ -22,6 +26,7 @@ export const Authenticatied = () => {
                     </Routes>
                 </Router>
             </Main>
+            <ProjectModal projectModalOpen={projectModalOpen} onClose={()=>setProjectModalOpen(false)}></ProjectModal>
         </Container>
     )
 }
@@ -31,9 +36,9 @@ const PageHeader = () => {
     return (
         <Header between>
             <HeaderLeft gap>
-                <Logo onClick={resetRoute}>Logo</Logo>
-                <h2>项目</h2>
-                <h2>用户</h2>
+                <ButtonNoPadding type={'link'} fontSize={2} onClick={resetRoute}>Jira</ButtonNoPadding>
+                <ProjectPopover></ProjectPopover>
+                <ButtonNoPadding type={'link'}>用户</ButtonNoPadding>
             </HeaderLeft>
             <HeaderRight>
                 <Dropdown overlay={<Menu>
@@ -69,13 +74,12 @@ grid-area: main;
 `
 
 const HeaderLeft = styled(Row)`
+
 `
 const HeaderRight = styled.div`
 
 `
-const Logo = styled.h2`
-cursor: pointer;
-`
+
 
 // grid布局
 // export const Authenticatied = () => {

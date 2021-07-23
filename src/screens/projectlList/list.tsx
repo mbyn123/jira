@@ -1,9 +1,10 @@
-import { Table, TableProps } from "antd"
+import { Menu, Dropdown , Table, TableProps } from "antd"
 import { User } from './searchPanel'
 import dayjs from 'dayjs'
 import { Link } from "react-router-dom"
 import { Pin } from "components/pin"
 import { useEditProject } from "utils/useProject"
+import { ButtonNoPadding } from "components/lib"
 
 export interface Project {
     id: number,
@@ -53,6 +54,21 @@ export const List = ({ users, ...props }: listProps) => {
                 title: '创建时间',
                 render: (value) => {
                     return value.created ? dayjs(value.created).format('YYYY-MM-DD') : ''
+                }
+            },
+            {
+                render: () => {
+                    return (
+                        <Dropdown overlay={
+                            <Menu>
+                                <Menu.Item key={'edit'}>
+                                    <ButtonNoPadding type={'link'}>编辑</ButtonNoPadding>
+                                </Menu.Item>
+                            </Menu>
+                        }>
+                            <ButtonNoPadding type={'link'}>...</ButtonNoPadding>
+                        </Dropdown >
+                    )
                 }
             }
         ]}

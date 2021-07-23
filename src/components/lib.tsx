@@ -1,5 +1,6 @@
 import styled from "@emotion/styled"
-import { Spin, Typography } from "antd"
+import { Button, Spin, Typography } from "antd"
+
 
 
 export const Row = styled.div<{
@@ -34,3 +35,11 @@ export const FullPageLoading = () => <FullPage>
 export const FullPageError = ({ error }: { error: Error | null }) => <FullPage>
     <Typography.Text type={'danger'}>{error?.message}</Typography.Text>
 </FullPage>
+
+export const ButtonNoPadding = styled(Button)<{
+    fontSize?:number
+}>`
+padding: 0;
+font-size: ${(props:{fontSize:number})=> props.fontSize + 'rem'}
+`
+export const TH = ({ children,level }: {children:string, level?: 5 | 1 | 2 | 3 | 4 | undefined }) => <Typography.Title level={level}>{children}</Typography.Title>
