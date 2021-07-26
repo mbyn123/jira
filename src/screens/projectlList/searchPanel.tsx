@@ -1,7 +1,7 @@
 import styled from "@emotion/styled"
 import { Button, Form, Input } from "antd"
 import { Row } from "components/lib"
-import { UseSelect } from "components/useSelect"
+import { UserSelect } from "components/useSelect"
 import { Project } from "./list"
 import { useProjectModal } from "./util"
 
@@ -18,12 +18,12 @@ interface searchPanelProps {
 }
 
 export const SearchPanel = ({ param, setParam, users }: searchPanelProps) => {
-    const {open} = useProjectModal()
+    const {startEdit} = useProjectModal()
     return (
         <Container>
            <Row between>
            <h2>项目列表</h2>
-           <Button onClick={()=>open()}>创建项目</Button>
+           <Button onClick={()=>startEdit(0)}>创建项目</Button>
            </Row>            
             <Form layout={'inline'}>
                 <Form.Item>
@@ -32,7 +32,7 @@ export const SearchPanel = ({ param, setParam, users }: searchPanelProps) => {
                     })} />
                 </Form.Item>
                 <Form.Item>
-                    <UseSelect defaultOptionName={'负责人'} value={param.personId} onChange={(value?:number) => setParam({
+                    <UserSelect defaultOptionName={'负责人'} value={param.personId} onChange={(value?:number) => setParam({
                         ...param, personId: value
                     })} />
                     {/* <Select value={param.personId} onChange={(value) => setParam({

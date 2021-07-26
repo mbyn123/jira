@@ -7,13 +7,14 @@ import { useDebounce, useDocumentTitle } from 'utils'
 // 第一二种
 // import { useHttp } from 'utils/http'
 import styled from "@emotion/styled"
-import { Typography } from "antd"
+// import { Typography } from "antd"
 // 第二种
 // import { useAsync } from "utils/useAsync"
 import { useProject } from "utils/useProject"
 import { useUsers } from "utils/useUsers"
 // import { useUrlQueryParam } from "utils/url"
 import { useProjrctParams } from "./util"
+import { ErrorBox } from 'components/lib'
 
 export const PanelList = () => {
     // const [param,setParam] = useState({
@@ -25,7 +26,10 @@ export const PanelList = () => {
     // const peojrctParam = {...param,personId:Number(param.personId)}
     // const debounceParam = useDebounce(peojrctParam, 1000)
     const [param, setParam] = useProjrctParams()
-    const { data: list, error, isLoading, retry } = useProject(useDebounce(param, 1000))
+    // useAsync获取异步请求状态数据
+    // const { data: list, error, isLoading, retry } = useProject(useDebounce(param, 1000))
+    // react-query获取异步请求状态数据
+    const { data: list, error, isLoading } = useProject(useDebounce(param, 1000))
     const { data: users } = useUsers()
     useDocumentTitle('项目列表', false)
     // 第一种
@@ -61,8 +65,10 @@ export const PanelList = () => {
     return (
         <Container>
             <SearchPanel param={param} setParam={setParam} users={users || []}></SearchPanel>
-            {error ? <Typography.Text type={'danger'}>{error.message}</Typography.Text> : null}
-            <List refresh={retry} dataSource={list || []} loading={isLoading} users={users || []}></List>
+            {/* {error ? <Typography.Text type={'danger'}>{error.message}</Typography.Text> : null} */}
+            {/* <List refresh={retry} dataSource={list || []} loading={isLoading} users={users || []}></List> */}
+            <ErrorBox error={error}></ErrorBox>
+            <List dataSource={list || []} loading={isLoading} users={users || []}></List>
         </Container>
     )
 }

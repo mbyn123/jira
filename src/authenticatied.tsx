@@ -48,7 +48,6 @@ const PageHeader = () => {
                 </Menu>}>
                     <Button type={'link'}>{user?.name}</Button>
                 </Dropdown>
-
             </HeaderRight>
         </Header>
     )
