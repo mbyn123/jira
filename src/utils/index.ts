@@ -54,6 +54,7 @@ export const  useDocumentTitle = (title:string,keepOnUnmount:boolean=true)=>{
     },[oldTile,keepOnUnmount])
 }
 
+// 刷新路由 
 export const resetRoute = ()=> window.location.href = window.location.origin
 
 // 返回组件的挂载状态

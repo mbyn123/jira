@@ -5,6 +5,7 @@ import { Link } from "react-router-dom"
 import { Pin } from "components/pin"
 import { useEditProject } from "utils/useProject"
 import { ButtonNoPadding } from "components/lib"
+import { useProjectModal } from "./util"
 
 export interface Project {
     id: number,
@@ -23,6 +24,7 @@ export const List = ({ users, ...props }: listProps) => {
     const { mutate } = useEditProject()
     // 函数柯里化
     const pinProject = (id: number) => (pin: boolean) => mutate({ id, pin }).then(props.refresh)
+    const {open} = useProjectModal()
     return (
         <Table pagination={false} rowKey='id' columns={[
             {
@@ -62,7 +64,7 @@ export const List = ({ users, ...props }: listProps) => {
                         <Dropdown overlay={
                             <Menu>
                                 <Menu.Item key={'edit'}>
-                                    <ButtonNoPadding type={'link'}>编辑</ButtonNoPadding>
+                                    <ButtonNoPadding type={'link'} onClick={()=>open()}>编辑</ButtonNoPadding>
                                 </Menu.Item>
                             </Menu>
                         }>

@@ -1,4 +1,3 @@
-import { useState } from "react"
 import { PanelList } from "screens/projectlList"
 import { Project } from 'screens/project'
 import { useAuth } from "context/auth-context"
@@ -12,21 +11,22 @@ import { ProjectModal } from "screens/projectlList/projectModal"
 import { ProjectPopover } from "components/projectPopover"
 
 export const Authenticatied = () => {
-    const [projectModalOpen,setProjectModalOpen] = useState(false)
     return (
         <Container>
-            <PageHeader />
-            <Main>
-                <Router>
+            <Router>
+                <PageHeader />
+                <Main>
+
                     <Routes>
                         <Route path={'/projects'} element={<PanelList />} />
                         <Route path={'/projects/:projectId/*'} element={<Project />} />
                         {/* 默认路由 */}
                         <Navigate to={'/projects'}></Navigate>
                     </Routes>
-                </Router>
-            </Main>
-            <ProjectModal projectModalOpen={projectModalOpen} onClose={()=>setProjectModalOpen(false)}></ProjectModal>
+
+                </Main>
+                <ProjectModal></ProjectModal>
+            </Router>
         </Container>
     )
 }
@@ -42,7 +42,7 @@ const PageHeader = () => {
             </HeaderLeft>
             <HeaderRight>
                 <Dropdown overlay={<Menu>
-                    <Menu.Item>
+                    <Menu.Item key={'logout'}>
                         <Button type={'link'} onClick={() => logout()}>退出</Button>
                     </Menu.Item>
                 </Menu>}>

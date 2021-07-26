@@ -1,7 +1,9 @@
 import styled from "@emotion/styled"
 import { Button, Form, Input } from "antd"
+import { Row } from "components/lib"
 import { UseSelect } from "components/useSelect"
 import { Project } from "./list"
+import { useProjectModal } from "./util"
 
 export interface User {
     id: number,
@@ -12,20 +14,17 @@ export interface User {
 interface searchPanelProps {
     users: User[],
     param: Partial<Pick<Project, 'name' | 'personId'>>,
-    // param: {
-    //     name: string,
-    //     personId: string
-    // },
     setParam: (param: searchPanelProps['param']) => void
 }
 
 export const SearchPanel = ({ param, setParam, users }: searchPanelProps) => {
+    const {open} = useProjectModal()
     return (
         <Container>
-           <Header>
+           <Row between>
            <h2>项目列表</h2>
-           <Button>创建项目</Button>
-           </Header>            
+           <Button onClick={()=>open()}>创建项目</Button>
+           </Row>            
             <Form layout={'inline'}>
                 <Form.Item>
                     <Input type="text" placeholder={'项目名称'} value={param.name} onChange={(e) => setParam({
@@ -53,8 +52,3 @@ const Container = styled.div`
 margin-bottom: 3rem;
 `
 
-const Header = styled.div`
-display: flex;
-align-items: center;
-justify-content: space-between;
-`
