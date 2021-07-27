@@ -1,4 +1,4 @@
-import React, { ReactNode, useEffect } from "react";
+import React, { ReactNode, useContext, useEffect } from "react";
 import * as auth from 'auth-provider'
 import { User } from "types/user"
 import { http } from "utils/http";
@@ -64,7 +64,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
 }
 
 export const useAuth = () => {
-    const context = React.useContext(AuthContext)
+    const context = useContext(AuthContext)
     if (!context) {
         throw new Error('userAuth必须在AuthProvider中使用')
     }
