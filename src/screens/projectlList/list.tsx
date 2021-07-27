@@ -1,19 +1,14 @@
 import { Menu, Dropdown , Table, TableProps } from "antd"
-import { User } from './searchPanel'
+import { User } from "types/user"
 import dayjs from 'dayjs'
 import { Link } from "react-router-dom"
 import { Pin } from "components/pin"
 import { useEditProject } from "utils/useProject"
 import { ButtonNoPadding } from "components/lib"
 import { useProjectModal } from "./util"
+import { Project } from "types/project"
 
-export interface Project {
-    id: number,
-    personId: number,
-    name: string,
-    created: number,
-    pin: boolean
-}
+
 
 interface listProps extends TableProps<Project> {
     users: User[],

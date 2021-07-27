@@ -1,4 +1,4 @@
-import { User } from 'screens/projectlList/searchPanel'
+import { User } from "types/user"
 import {http} from 'utils/http'
 
 // const api = process.env.REACT_APP_API_URL

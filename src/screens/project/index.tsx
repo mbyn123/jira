@@ -12,7 +12,7 @@ export const Project = () => {
             <Routes>
                 <Route path='/kanban' element={<Kanban />} />
                 <Route path='/epic' element={<Epic />} />
-                <Navigate to={window.location.pathname + '/kanban'}></Navigate>
+                <Navigate to={window.location.pathname + '/kanban'} replace></Navigate>
             </Routes>
 
         </div>

@@ -2,14 +2,11 @@ import styled from "@emotion/styled"
 import { Button, Form, Input } from "antd"
 import { Row } from "components/lib"
 import { UserSelect } from "components/useSelect"
-import { Project } from "./list"
+import { Project } from "types/project"
+import { User } from "types/user"
 import { useProjectModal } from "./util"
 
-export interface User {
-    id: number,
-    name: string,
-    token: string
-}
+
 
 interface searchPanelProps {
     users: User[],

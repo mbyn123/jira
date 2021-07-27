@@ -1,4 +1,4 @@
-import { User } from 'screens/projectlList/searchPanel';
+import { User } from "types/user"
 import { useHttp } from './http';
 import { useAsync } from './useAsync';
 import { useEffect } from "react"

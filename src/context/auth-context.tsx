@@ -1,10 +1,11 @@
 import React, { ReactNode, useEffect } from "react";
 import * as auth from 'auth-provider'
-import { User } from 'screens/projectlList/searchPanel'
+import { User } from "types/user"
 import { http } from "utils/http";
 // import { useMount } from "utils";
 import { useAsync } from "utils/useAsync";
 import { FullPageError, FullPageLoading } from "components/lib";
+import { useQueryClient } from "react-query";
 
 interface authForm {
     username: string,
@@ -31,13 +32,18 @@ const AuthContext = React.createContext<{
 
 AuthContext.displayName = 'AuthContext'
 
+
 export const AuthProvider = ({ children }: { children: ReactNode }) => {
+    const queryClient = useQueryClient()
     // 第一种
     // const [user, setUser] = useState<User | null>(null)
     const {run,setData:setUser,data:user,isLoading,isIdle,isError,error} = useAsync<User | null>()
     const login = (form: authForm) => auth.login(form).then(setUser)
     const register = (form: authForm) => auth.register(form).then(setUser)
-    const logout = () => auth.logout().then(() => setUser(null))
+    const logout = () => auth.logout().then(() => {
+        setUser(null)
+        queryClient.clear()
+    })
     // 页面刷新时，验证token是否失效
     useEffect(() => {
         run(bootStraspUser())
@@ -63,4 +69,4 @@ export const useAuth = () => {
         throw new Error('userAuth必须在AuthProvider中使用')
     }
     return context
-}
+}   

@@ -21,13 +21,19 @@ export const ProjectModal = () => {
             close()
         })
     }
+    
 
     useEffect(() => {
         form.setFieldsValue(editingProject)
     }, [editingProject, form]);
 
+    const closeModal = ()=>{
+        form.resetFields()
+        close()
+    }
+
     return (
-        <Drawer forceRender width={'100%'} visible={projectModalOpen} onClose={close}>
+        <Drawer forceRender width={'100%'} visible={projectModalOpen} onClose={closeModal}>
             <Contatial>
                 {
                     isLoading ? (

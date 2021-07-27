@@ -1,6 +1,6 @@
 import { useMutation, useQuery, useQueryClient } from 'react-query';
 // import { useCallback, useEffect } from "react"
-import { Project } from "screens/projectlList/list"
+import { Project } from "types/project"
 import { cleanObject } from "utils"
 import { useHttp } from "./http"
 // import { useAsync } from "./useAsync"
