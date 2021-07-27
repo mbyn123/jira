@@ -6,8 +6,6 @@ import { Project } from "types/project"
 import { User } from "types/user"
 import { useProjectModal } from "./util"
 
-
-
 interface searchPanelProps {
     users: User[],
     param: Partial<Pick<Project, 'name' | 'personId'>>,
