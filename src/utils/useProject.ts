@@ -45,6 +45,9 @@ export const useProjectDetail = (id?:number) => {
     return useQuery(['project', { id }], () => client(`projects/${id}`), { enabled: Boolean(id) }) // enabled: true/false表示 id存在才发送请求
 }
 
+
+
+// 使用useAsync管理异步请求
 // export const useProject = (params?:Partial<Project>) => {
 //     const client = useHttp()
 //     const {run,...result} = useAsync<Project[]>()

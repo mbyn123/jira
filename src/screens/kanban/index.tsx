@@ -6,6 +6,7 @@ import { useTask } from "utils/useTask"
 import { CreateColums } from "./createCloums"
 import { KanbanCloums } from "./kanbanCloums"
 import { SearchPanel } from "./searchPanel"
+import { TaskModal } from "./taskModal"
 import { useProjectIdInUrl, useProjectInUrl } from "./util"
 
 export const Kanban = () => {
@@ -26,6 +27,7 @@ export const Kanban = () => {
                     <CreateColums />
                 </CloumsWrapper>
             }
+            <TaskModal/>
         </Container>
     )
 }
@@ -44,6 +46,7 @@ const CloumsWrapper = styled.div`
 display: flex;
 overflow: scroll;
 margin-right: 2rem;
+/* border:1px solid red; */
 flex: 1;
 ::-webkit-scrollbar{
     display: none;

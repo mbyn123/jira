@@ -15,6 +15,6 @@ export const CreateColums = ()=>{
     }
     
     return <Container>
-        <Input value={name} onPressEnter={submit} onChange={e=>setName(e.target.value)}></Input>
+        <Input placeholder={'请输入看板名称'} value={name} onPressEnter={submit} onChange={e=>setName(e.target.value)}></Input>
     </Container>
 }
