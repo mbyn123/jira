@@ -1,7 +1,7 @@
 import styled from "@emotion/styled"
 import { Button, Form, Input } from "antd"
 import { Row } from "components/lib"
-import { UserSelect } from "components/useSelect"
+import { UserSelect } from "components/userSelect"
 import { Project } from "types/project"
 import { User } from "types/user"
 import { useProjectModal } from "./util"
