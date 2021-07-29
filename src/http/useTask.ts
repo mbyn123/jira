@@ -1,6 +1,6 @@
-import { Task } from './../types/task';
-import { useHttp } from './http';
+import { useHttp } from '../http/http';
 import { useMutation, useQuery, useQueryClient } from "react-query";
+import { Task } from 'types/task';
 
 // 获取事务 请求方法
 export const useTask = (param?: Partial<Task>) => {

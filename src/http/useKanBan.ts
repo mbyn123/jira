@@ -1,4 +1,4 @@
-import { useHttp } from './http';
+import { useHttp } from '../http/http';
 import { useMutation, useQuery, useQueryClient } from "react-query";
 import { Kanban } from "types/kanban";
 

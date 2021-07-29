@@ -1,6 +1,6 @@
 import { useQuery } from 'react-query';
 import { User } from "types/user"
-import { useHttp } from './http';
+import { useHttp } from '../http/http';
 // import { useAsync } from './useAsync';
 // import { useEffect } from "react"
 import { cleanObject } from "utils"

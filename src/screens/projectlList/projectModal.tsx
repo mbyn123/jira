@@ -3,8 +3,8 @@ import { Button, Drawer, Form, Input, Spin } from "antd"
 import { useForm } from "antd/lib/form/Form"
 import { ErrorBox } from "components/lib"
 import { UserSelect } from "components/userSelect"
+import { useEditProject, useAddProject } from "http/useProject"
 import { useEffect } from "react"
-import { useEditProject, useAddProject } from "utils/useProject"
 import { useProjectModal } from "./util"
 
 export const ProjectModal = () => {

@@ -1,5 +1,5 @@
-import { useMountedRef } from './index';
 import { useCallback, useReducer, useState } from 'react';
+import { useMountedRef } from 'utils';
 
 
 // 使用useReducer改造useAsync

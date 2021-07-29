@@ -1,6 +1,6 @@
+import { useProjectDetail } from 'http/useProject';
 import { useMemo } from 'react';
 import { useUrlQueryParam } from "utils/url"
-import { useProjectDetail } from 'utils/useProject';
 
 // 搜索组件需要使用的请求参数
 export const useProjrctParams = () => {

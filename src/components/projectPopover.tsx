@@ -1,7 +1,7 @@
 import styled from "@emotion/styled"
 import { List, Popover, Typography } from "antd"
+import { useProject } from "http/useProject"
 import { useProjectModal } from "screens/projectlList/util"
-import { useProject } from "utils/useProject"
 import { ButtonNoPadding } from "./lib"
 
 export const ProjectPopover = () => {

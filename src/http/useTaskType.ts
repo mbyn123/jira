@@ -1,6 +1,6 @@
 import { useQuery } from "react-query"
 import { TaskType } from "types/taskType"
-import { useHttp } from "./http"
+import { useHttp } from "../http/http"
 
 // 获取事务状态
 export const useTaskType = () => {

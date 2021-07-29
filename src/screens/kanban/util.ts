@@ -1,9 +1,10 @@
 import { useCallback } from 'react';
-import { useTaskDetail } from './../../utils/useTask';
-import { useProjectDetail } from './../../utils/useProject';
+
 import { useLocation } from "react-router"
 import { useUrlQueryParam } from 'utils/url';
 import { useMemo } from 'react';
+import { useProjectDetail } from 'http/useProject';
+import { useTaskDetail } from 'http/useTask';
 
 // 获取当前项目id
 export const useProjectIdInUrl = () => {

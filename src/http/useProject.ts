@@ -2,7 +2,7 @@ import { useMutation, useQuery, useQueryClient } from 'react-query';
 // import { useCallback, useEffect } from "react"
 import { Project } from "types/project"
 import { cleanObject } from "utils"
-import { useHttp } from "./http"
+import { useHttp } from "../http/http"
 // import { useAsync } from "./useAsync"
 
 

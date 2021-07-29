@@ -3,10 +3,10 @@ import { User } from "types/user"
 import dayjs from 'dayjs'
 import { Link } from "react-router-dom"
 import { Pin } from "components/pin"
-import { useEditProject } from "utils/useProject"
 import { ButtonNoPadding } from "components/lib"
 import { useProjectModal } from "./util"
 import { Project } from "types/project"
+import { useEditProject } from "http/useProject"
 
 
 

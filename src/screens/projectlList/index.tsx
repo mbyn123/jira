@@ -10,11 +10,12 @@ import styled from "@emotion/styled"
 // import { Typography } from "antd"
 // 第二种
 // import { useAsync } from "utils/useAsync"
-import { useProject } from "utils/useProject"
-import { useUsers } from "utils/useUser"
+
 // import { useUrlQueryParam } from "utils/url"
 import { useProjrctParams } from "./util"
 import { ErrorBox } from 'components/lib'
+import { useProject } from 'http/useProject'
+import { useUsers } from 'http/useUser'
 
 export const PanelList = () => {
     // const [param,setParam] = useState({

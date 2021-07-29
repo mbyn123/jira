@@ -1,6 +1,6 @@
 import { Input } from "antd"
+import { useAddTask } from "http/useTask"
 import { useEffect, useState } from "react"
-import { useAddTask } from "utils/useTask"
 import { useProjectIdInUrl } from "./util"
 
 export const CreateTask = ({ kanbanId }: { kanbanId?: number }) => {

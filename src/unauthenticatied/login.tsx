@@ -2,7 +2,7 @@
 import { useAuth } from 'context/auth-context'
 import { Button, Form, Input } from "antd";
 import styled from '@emotion/styled';
-import { useAsync } from 'utils/useAsync';
+import { useAsync } from 'http/useAsync';
 
 export const LoginScreen = ({onError}:{onError:(error:Error)=>void}) => {
     const { login } = useAuth()

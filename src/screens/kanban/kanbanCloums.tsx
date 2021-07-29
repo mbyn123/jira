@@ -1,6 +1,4 @@
 import { Kanban } from "types/kanban"
-import { useTask } from "utils/useTask"
-import { useTaskType } from "utils/useTaskType"
 import { useTaskModal, useTaskSearchParams } from "./util"
 import {
     CheckSquareTwoTone,
@@ -12,7 +10,9 @@ import { useDebounce } from "utils";
 import { CreateTask } from "./createTask";
 import { Mark } from "components/mask";
 import { Row } from "components/lib";
-import { useDeleteKanban } from "utils/useKanBan";
+import { useTaskType } from "http/useTaskType";
+import { useDeleteKanban } from "http/useKanBan";
+import { useTask } from "http/useTask";
 
 const TaskTypeIcon = ({ id }: { id: number }) => {
     const { data: taskTypes } = useTaskType()

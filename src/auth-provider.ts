@@ -1,5 +1,5 @@
 import { User } from "types/user"
-import {http} from 'utils/http'
+import {http} from 'http/http'
 
 // const api = process.env.REACT_APP_API_URL
 

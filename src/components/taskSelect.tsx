@@ -1,5 +1,5 @@
+import { useTaskType } from "http/useTaskType"
 import React from "react"
-import { useTaskType } from "utils/useTaskType"
 import { IdSelect } from "./idSelect"
 
 export const TaskSelect = (props:React.ComponentProps<typeof IdSelect>)=>{
