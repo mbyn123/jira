@@ -1,10 +1,9 @@
-import { Input, Form } from "antd"
+import { Input, Form, Button,Modal } from "antd"
 import { useForm } from "antd/lib/form/Form"
-import Modal from "antd/lib/modal/Modal"
 import { TaskSelect } from "components/taskSelect"
 import { UserSelect } from "components/userSelect"
 import { useEffect } from "react"
-import { useEditTask } from "utils/useTask"
+import { useDeleteTask, useEditTask } from "utils/useTask"
 import { useTaskModal } from "./util"
 
 const layout = {
@@ -15,18 +14,32 @@ const layout = {
 export const TaskModal = () => {
     const [form] = useForm()
     const { editingTask, close, editingTakId } = useTaskModal()
-    const { mutateAsync, isLoading } = useEditTask()
+    const { mutateAsync:editTask, isLoading } = useEditTask()
+    const { mutate:deleteTask, isLoading:deleteLoading } = useDeleteTask()
 
     const onOk = async () => {
         const valid = await form.validateFields(['name'])
         if(!valid.name){return}       
-        await mutateAsync({ ...editingTask, ...form.getFieldsValue() })
+        await editTask({ ...editingTask, ...form.getFieldsValue() })
         close()
     }
 
     const onCancel = () => {
         close()
         form.resetFields()
+    }
+
+    const onDelete = ()=>{
+        close()
+        Modal.confirm({
+            okText: '确定',
+            cancelText: '取消',
+            title: '确定删除任务吗',
+            onOk: () => {
+                deleteTask({ id:Number(editingTakId) })
+               
+            }
+        })
     }
 
     // 监听数据变化改变表单
@@ -47,6 +60,9 @@ export const TaskModal = () => {
                     <TaskSelect></TaskSelect>
                 </Form.Item>
             </Form>
+            <div style={{textAlign:'right'}}>
+                <Button loading={deleteLoading} onClick={()=>onDelete()}>删除</Button>
+            </div>
         </Modal>
     )
 }
