@@ -74,5 +74,6 @@ export const List = ({ users, ...props }: listProps) => {
             {...props}
         ></Table>
     )
+
 }
 

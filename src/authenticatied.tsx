@@ -16,7 +16,6 @@ export const Authenticatied = () => {
             <Router>
                 <PageHeader />
                 <Main>
-
                     <Routes>
                         <Route path={'/projects'} element={<PanelList />} />
                         <Route path={'/projects/:projectId/*'} element={<Project />} />
