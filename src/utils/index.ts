@@ -8,7 +8,7 @@ export const isFalsy = (value: unknown) => value === 0 ? false : !value
 export const isVoid = (value: unknown) => value === undefined || value === null || value === ''
 
 // 清除对象中的空值
-export const cleanObject = (object: {[key:string]:unknown}) => {
+export const cleanObject = (object: { [key: string]: unknown }) => {
     const result = { ...object }
     Object.keys(result).forEach(key => {
         const value = result[key]
@@ -27,7 +27,7 @@ export const cleanObject = (object: {[key:string]:unknown}) => {
 // }
 
 // 节流方法
-export const useDebounce = <V>(value:V, delay: number) => {
+export const useDebounce = <V>(value: V, delay: number) => {
     const [debouncedValue, setDebouncedValue] = useState(value)
     useEffect(() => {
         const timeout = setTimeout(() => setDebouncedValue(value), delay)
@@ -37,34 +37,34 @@ export const useDebounce = <V>(value:V, delay: number) => {
 }
 
 // 修改页面标题
-export const  useDocumentTitle = (title:string,keepOnUnmount:boolean=true)=>{
+export const useDocumentTitle = (title: string, keepOnUnmount: boolean = true) => {
     // useRef可以保存最初状态的值，不受其它影响
     const oldTile = useRef(document.title).current
 
-    useEffect(()=>{
+    useEffect(() => {
         document.title = title
-    },[title])
+    }, [title])
 
-    useEffect(()=>{
-        return ()=>{
-            if(!keepOnUnmount){
+    useEffect(() => {
+        return () => {
+            if (!keepOnUnmount) {
                 document.title = oldTile
             }
         }
-    },[oldTile,keepOnUnmount])
+    }, [oldTile, keepOnUnmount])
 }
 
 // 刷新路由 
-export const resetRoute = ()=> window.location.href = window.location.origin
+export const resetRoute = () => window.location.href = window.location.origin
 
 // 返回组件的挂载状态
-export const useMountedRef = ()=>{
+export const useMountedRef = () => {
     const mountedRef = useRef(false)
     // useEffect是在组件渲染完后才执行
-    useEffect(()=>{
+    useEffect(() => {
         // 组件加载完成，返回true
         mountedRef.current = true
-        return ()=>{
+        return () => {
             // 组件卸载，返回false
             mountedRef.current = false
         }

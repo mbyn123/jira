@@ -117,7 +117,7 @@ export const useAsync = <D>(initialState?: State<D>, initialConfig?: typeof defa
 //     // 刷新，使用useState保存函数,会出现惰性初始化加载函数，所以在外面包裹一层
 //     const [retry, setRetry] = useState(() => () => {})
 
-//     const mountedRef = useMountedRef()
+//     const mountedRef = ()
 
 //     const setData = useCallback((data: D) => setState({
 //         stat: 'success',
